@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request
 from json import load
 from apyori import apriori
+import os
+
+script_dir = os.path.dirname(__file__)
+full_dataset_file_path = os.path.join(script_dir, './static/data/full-dataset.json')
 
 listOfEvents =[]
 usernames = []
@@ -13,7 +17,7 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     global listOfEvents
-    with open('C:/Users/MJ/PycharmProjects/picaeventic/static/data/full-dataset.json', 'r', encoding="utf8") as f:
+    with open(full_dataset_file_path, 'r', encoding="utf8") as f:
         listOfEvents = load(f)
 
     return render_template("index.html", listOfEvents=listOfEvents, bundles=bundles)
